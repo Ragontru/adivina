@@ -1,20 +1,32 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-title>
-      Blank
+      Adivina el número secreto
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+<ion-content>
+  <!-- ion-padding deja un espacio entre el borde de la pantalla y el contenido -->
+  <div class="ion-padding">
+    <!-- [(ngModel)] Data Binding bidireccional entre input y variable-->
+    <!-- placeholder es un input que limita el valor -->
+    <ion-input type="number" min="1" max="100" [(ngModel)]="num" placeholder="Introduce un número del 1 al 100">
+    </ion-input>
+    <!-- {{ }} Data Binding unidireccional -->
+    <p>El número secreto es {{ mayorMenor }} {{ num }}</p>
+    <!-- Se le añade una condicion para que aparezca cuando esta se cumpla -->
+    <ion-card *ngIf="mayorMenor==''">
+      <ion-card-header>
+        ¡¡¡Enhorabuena!!!
+      </ion-card-header>
+      <ion-card-content>
+        Has acertado, el número secreto es el {{ num }}
+      </ion-card-content>
+    </ion-card>  
+    <!-- Muestra este boton mientras NO se cumpla la condicion -->
+    <ion-button *ngIf="mayorMenor!=''" expand="block" (click)="compruebaNumero()">Adivina</ion-button>
+    <!-- Muestra este boton cuando se cumpla la condicion -->
+    <ion-button *ngIf="mayorMenor==''" expand="block" (click)="reinicia()">Volver a Jugar</ion-button>
   </div>
 </ion-content>
